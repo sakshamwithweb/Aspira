@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
@@ -164,18 +165,25 @@ const Page = () => {
                     </button>
                 </form>
 
-                <div className="mt-4 text-center">
-                    <p className="text-sm text-gray-600">
+                <div className="mt-6 text-center">
+                    <p className="text-sm text-gray-500">
                         {isLogin ? "New to Aspira?" : "Already have an account?"}{" "}
                         <button
                             type="button"
                             onClick={toggleForm}
-                            className="text-blue-500 font-medium hover:underline"
+                            className="text-blue-600 font-medium hover:underline focus:outline-none"
                         >
                             {isLogin ? "Sign up" : "Login"}
                         </button>
                     </p>
+                    <Link
+                        href="/forget_password"
+                        className="mt-2 inline-block text-sm text-blue-600 font-medium hover:underline"
+                    >
+                        Forget Password?
+                    </Link>
                 </div>
+
             </div>
         </div>
     );
