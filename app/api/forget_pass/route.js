@@ -3,8 +3,8 @@ import { NextResponse } from "next/server"
 export async function POST(req) {
     try {
         const { email } = await req.json();
-
-        const req1 = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/getUserData`, {
+        console.log(process.env.URL)
+        const req1 = await fetch(`${process.env.URL}/api/getUserData`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -16,7 +16,7 @@ export async function POST(req) {
         
         const res1 = await req1.json();
 
-        const req2 = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/sendEmail`, {
+        const req2 = await fetch(`${process.env.URL}/api/sendEmail`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
