@@ -177,7 +177,7 @@ const Page = () => {
                         </button>
                     </p>
                     <Link
-                        href="/forget_password"
+                        href="/enter/forget_password"
                         className="mt-2 inline-block text-sm text-blue-600 font-medium hover:underline"
                     >
                         Forget Password?
