@@ -22,7 +22,7 @@ const Page = () => {
                 alert("fill form")
                 return
             }
-            const req = await fetch("/api/login", {
+            const req = await fetch("/api/enter/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -44,7 +44,7 @@ const Page = () => {
             alert("fill form")
             return
         }
-        const req = await fetch("/api/register", {
+        const req = await fetch("/api/enter/register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

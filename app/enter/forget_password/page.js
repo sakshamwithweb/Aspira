@@ -12,7 +12,7 @@ const Page = () => {
             return;
         }
         (async () => {
-            const req = await fetch("/api/forget_pass", {
+            const req = await fetch("/api/enter/forget_pass", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
