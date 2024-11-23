@@ -7,8 +7,12 @@ const Page = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (email.trim() === "") {
+            alert("fill out details")
+            return;
+        }
         (async () => {
-            const req = await fetch("/api/getUserData", {
+            const req = await fetch("/api/forget_pass", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -19,6 +23,7 @@ const Page = () => {
             })
             const res = await req.json()
             console.log(res)
+            alert(res.message)
         })()
     };
 
