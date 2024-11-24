@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 
 const SkillManage = ({ email }) => {
     const [skills, setSkills] = useState([{ key: "", value: "" }]);
+    const [wait, setWait] = useState(false)
 
     const handleAddSkill = () => {
         setSkills([...skills, { key: "", value: "" }]);
@@ -22,6 +23,7 @@ const SkillManage = ({ email }) => {
     };
 
     const handleSubmit = async () => {
+        setWait(true)
         console.log(skills);
         const req = await fetch("/api/dashboard/skill/add", {
             method: "POST",
@@ -30,10 +32,18 @@ const SkillManage = ({ email }) => {
             },
             body: JSON.stringify({ email, skills })
         })
+        const res = await req.json()
+        if (!res.success) {
+            alert("Error adding skills")
+            return
+        }
+        setWait(false)
+        alert("Skills added successfully")
     };
 
     useEffect(() => {
         (async () => {
+            setWait(true)
             const req = await fetch("/api/dashboard/skill/find", {
                 method: "POST",
                 headers: {
@@ -41,7 +51,8 @@ const SkillManage = ({ email }) => {
                 },
                 body: JSON.stringify({ email })
             })
-            const res=await req.json()
+            const res = await req.json()
+            setWait(false)
             setSkills(res.data.skills)
         })()
 
@@ -55,20 +66,23 @@ const SkillManage = ({ email }) => {
                     <div key={index} className="flex items-center space-x-4">
                         <input
                             type="text"
-                            placeholder="e.g. CLIENT_KEY"
+                            placeholder="SKILL"
                             value={skills.key}
                             onChange={(e) => handleChange(index, "key", e.target.value)}
                             className="border border-gray-300 rounded px-3 py-2 w-1/2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            disabled={wait}
                         />
                         <input
                             type="text"
-                            placeholder="Value"
+                            placeholder="ROLE MODEL"
                             value={skills.value}
                             onChange={(e) => handleChange(index, "value", e.target.value)}
                             className="border border-gray-300 rounded px-3 py-2 w-1/2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            disabled={wait}
                         />
                         <button
                             onClick={() => handleRemoveSkill(index)}
+                            disabled={wait}
                             className="text-red-500 hover:text-red-700"
                         >
                             &#x2715;
@@ -83,9 +97,10 @@ const SkillManage = ({ email }) => {
                 </button>
                 <button
                     onClick={handleSubmit}
-                    className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 mt-4"
+                    className={`w-full ${wait && "opacity-50 cursor-not-allowed"} bg-blue-500 text-white py-2 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 mt-4`}
+                    disabled={wait}
                 >
-                    Submit
+                    {wait ? "Please wait..." : "Submit"}
                 </button>
             </div>
         </div>
