@@ -13,6 +13,7 @@ const Page = () => {
     const [otpSent, setOtpSent] = useState(false)
     const [otp, setOtp] = useState(0)
     const [uid, setUid] = useState(null)
+    const [wait, setWait] = useState(false)
     const toggleForm = () => {
         setIsLogin(!isLogin);
     };
@@ -24,6 +25,7 @@ const Page = () => {
                 alert("fill form")
                 return
             }
+            setWait(true)
             const req = await fetch("/api/enter/login", {
                 method: "POST",
                 headers: {
@@ -38,6 +40,7 @@ const Page = () => {
             if (res.success) {
                 redirect("/dashboard")
             } else {
+                setWait(false)
                 alert(res.message)
             }
             return
@@ -46,6 +49,7 @@ const Page = () => {
             alert("fill form")
             return
         }
+        setWait(true)
         const req = await fetch("/api/enter/checkUser", {
             method: "POST",
             headers: {
@@ -60,6 +64,7 @@ const Page = () => {
             setUid(res.uid)
             setOtpSent(true)
         } else {
+            setWait(false)
             alert(res.message)
         }
     };
@@ -194,7 +199,7 @@ const Page = () => {
                         <div className="mb-6">
                             <label
                                 htmlFor="otp"
-                                className="block text-sm font-medium text-gray-700 mb-1"
+                                className="block text-sm font-medium text-gray-700 mb-2"
                             >
                                 OTP
                             </label>
@@ -203,18 +208,24 @@ const Page = () => {
                                 id="otp"
                                 value={otp}
                                 onChange={(e) => setOtp(e.target.value)}
-                                className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                className="w-full border border-gray-300 rounded-lg px-4 py-2 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
                                 placeholder="Enter your OTP"
                             />
-                            <button onClick={handleSubmitOtp}>Submit Otp</button>
+                            <button
+                                onClick={handleSubmitOtp}
+                                className="mt-4 w-full bg-blue-600 text-white font-semibold py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 hover:bg-blue-700 transition duration-200"
+                            >
+                                Submit OTP
+                            </button>
                         </div>
-
                     )}
+
 
                     <button
                         type="submit"
                         onClick={handleSubmit}
-                        className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300"
+                        disabled={wait}
+                        className={`w-full bg-blue-500 ${wait && "pointer-events-none opacity-50"} text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300`}
                     >
                         {isLogin ? "Login" : "Sign Up"}
                     </button>
@@ -226,7 +237,7 @@ const Page = () => {
                         <button
                             type="button"
                             onClick={toggleForm}
-                            className="text-blue-600 font-medium hover:underline focus:outline-none"
+                            className='text-blue-600 font-medium hover:underline focus:outline-none'
                         >
                             {isLogin ? "Sign up" : "Login"}
                         </button>

@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 
 const Page = () => {
     const [email, setEmail] = useState('');
+    const [wait,setWait] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -12,6 +13,7 @@ const Page = () => {
             return;
         }
         (async () => {
+            setWait(true)
             const req = await fetch("/api/enter/forget_pass", {
                 method: "POST",
                 headers: {
@@ -22,8 +24,8 @@ const Page = () => {
                 })
             })
             const res = await req.json()
-            console.log(res)
             alert(res.message)
+            setWait(false)
         })()
     };
 
@@ -51,6 +53,7 @@ const Page = () => {
             <button
                 type="submit"
                 className="w-full py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                disabled={wait}
             >
                 Submit
             </button>
