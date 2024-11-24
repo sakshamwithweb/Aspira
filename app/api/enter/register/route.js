@@ -8,15 +8,6 @@ export async function POST(req) {
         
         await connectDb();
 
-        const existingUser = await User.findOne({ email });
-
-        if (existingUser) {
-            return NextResponse.json({
-                success: false,
-                message: "Email already exists, please use a different one",
-            });
-        }
-
         const newUser = new User({
             email,
             password,

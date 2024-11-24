@@ -10,7 +10,9 @@ const Page = () => {
     const [password, setPassword] = useState("");
     const [name, setName] = useState("")
     const [omi_userid, setOmiUserid] = useState("")
-
+    const [otpSent, setOtpSent] = useState(false)
+    const [otp, setOtp] = useState(0)
+    const [uid, setUid] = useState(null)
     const toggleForm = () => {
         setIsLogin(!isLogin);
     };
@@ -44,26 +46,29 @@ const Page = () => {
             alert("fill form")
             return
         }
-        const req = await fetch("/api/enter/register", {
+        const req = await fetch("/api/enter/checkUser", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
                 email: email,
-                password: password,
-                name: name,
-                omi_userid: omi_userid
             })
         })
         const res = await req.json()
         if (res.success) {
-            alert("signed up successfully! Now login")
-            window.location.reload()
+            setUid(res.uid)
+            setOtpSent(true)
         } else {
             alert(res.message)
         }
     };
+
+    useEffect(() => {
+        if (otpSent) {
+            alert("Otp sent successfully")
+        }
+    }, [otpSent, uid])
 
     useEffect(() => {
         (async () => {
@@ -75,6 +80,35 @@ const Page = () => {
             }
         })()
     }, [])
+
+    const handleSubmitOtp = async (e) => {
+        e.preventDefault()
+        if (otp !== 0 && otpSent && uid) {
+            const req = await fetch("/api/enter/check_otp", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    uid: uid,
+                    otp: otp,
+                    email: email,
+                    password: password,
+                    name: name,
+                    omi_userid: omi_userid
+                })
+            })
+            const res = await req.json()
+            if (res.success) {
+                alert("User registered successfully! Now login please")
+                window.location.reload()
+            } else {
+                alert(res.message)
+            }
+        } else {
+            LazyResult("Unable to verify otp")
+        }
+    }
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100 py-8">
@@ -155,6 +189,27 @@ const Page = () => {
                             placeholder="Enter your password"
                         />
                     </div>
+
+                    {otpSent && (
+                        <div className="mb-6">
+                            <label
+                                htmlFor="otp"
+                                className="block text-sm font-medium text-gray-700 mb-1"
+                            >
+                                OTP
+                            </label>
+                            <input
+                                type="number"
+                                id="otp"
+                                value={otp}
+                                onChange={(e) => setOtp(e.target.value)}
+                                className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                placeholder="Enter your OTP"
+                            />
+                            <button onClick={handleSubmitOtp}>Submit Otp</button>
+                        </div>
+
+                    )}
 
                     <button
                         type="submit"
