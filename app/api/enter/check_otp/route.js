@@ -9,6 +9,10 @@ export async function POST(req) {
         const check = await Otp.findOne({ uid: uid })
         if (!check) return NextResponse.json({ message: "Error verifying OTP", success: false })
         if (check.otp != otp) return NextResponse.json({ message: "Invalid OTP", success: false });
+        if(check.time < Date.now() - 300000){
+            await Otp.deleteOne({ uid: uid });
+            return NextResponse.json({ message: "OTP expired, Reload page", success: false })
+        }
         await Otp.deleteOne({ uid: uid });
         const req1 = await fetch(`${process.env.URL}/api/enter/register`, {
             method: "POST",
