@@ -53,7 +53,10 @@ const SkillManage = ({ email }) => {
             })
             const res = await req.json()
             setWait(false)
-            setSkills(res.data.skills)
+            try {
+                setSkills(res.data.skills)
+            } catch (error) {
+            }
         })()
 
     }, [])
