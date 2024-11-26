@@ -1,1 +1,4 @@
 curl -X POST https://aspira-iota.vercel.app/api/backend/request -H "Content-Type: application/json" -d "{\"transcribe\":\"So today we are going to start a company I want you only you all to be an investor\",\"userId\":\"54P5WxXTXNcE7AEZc98DgbtAyCU2\"}"
+
+
+curl -X POST localhost:3000/api/backend/request -H "Content-Type: application/json" -d "{\"transcribe\":\"So today we are going to start a company I want you only you all to be an investor\",\"userId\":\"54P5WxXTXNcE7AEZc98DgbtAyCU2\"}"

@@ -36,7 +36,18 @@ export async function POST(request) {
         const chatCompletion = await openai.chat.completions.create({
             messages: [
                 { role: 'system', content: "Provide all responses in plain text only no md of any formate. Respond with the exact content requested, avoiding additional context or preamble." },
-                { role: 'user', content: `You are a helpful mentor. I am ${user.name} It is a json where I have writte my skill and the role model for that skill-${JSON.stringify(skill.skills)}\nIt is a transcription of what I was talking recently-${transcribe}.\nI want based on what I want to acquire skill and my conversation, if there is any advice to be better so give in short like 1-2 sentences but if there is no no such advice, return false` }
+                {
+                    role: 'user',
+                    content: `You are a skilled and insightful mentor helping individuals improve specific skills based on their recent conversations. 
+                    I am ${user.name}, and here is some context about me:
+                    - I aim to develop the following skills and want to emulate the role models: ${JSON.stringify(skill.skills)}.                  
+                    Below is a transcription of a recent conversation I had:
+                    "${transcribe}"
+                    Based on the transcription and the skills I want to improve, please provide:
+                    1. A concise piece of actionable advice (1-2 sentences) tailored to my goals, if there is an opportunity for improvement.
+                    2. If no actionable advice is relevant, respond with exactly the word: "false".
+                    Ensure your response is in plain text with no markdown, bullet points, or additional formatting.`
+                }
             ],
             model: 'gpt-3.5-turbo',
         });
