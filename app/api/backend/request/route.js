@@ -52,7 +52,7 @@ export async function POST(request) {
         To give better advice, consider this summary of previous suggestions and feedback provided to me:
         "${currentSummary}"
         Below is a transcription of a recent conversation I had:
-        "${transcript_segments}"
+        "${JSON.stringify(transcript_segments)}"
         Based on the transcription, the skills I want to improve, and the historical summary, please provide:
         1. A concise piece of actionable advice (max 2 sentences) tailored to my goals, if there is an opportunity for improvement.
         2. If no actionable advice is relevant, respond with exactly the word: "false".
