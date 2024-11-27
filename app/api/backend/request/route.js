@@ -21,6 +21,9 @@ const openai = new OpenAI({
 
 export async function POST(request) {
     try {
+        const { searchParams } = new URL(request.url);
+        const uid = searchParams.get('uid');
+        console.log("uid", uid);
         const body = await request.json();
         console.log(body)
         const { transcribe, userId } = body;
