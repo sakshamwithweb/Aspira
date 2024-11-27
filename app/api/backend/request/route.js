@@ -46,9 +46,15 @@ export async function POST(request) {
         } else {
             currentSummary = findSummary.summary;
         }
+        const skills = skill.skills;
+        const formattedSkill = skills
+            .map(skill => `${skill.key} as ${skill.value}`)
+            .join(", ");
+
+        console.log(formattedSkill);
         const prompt = `You are a skilled and insightful mentor helping individuals improve specific skills based on their recent conversations and historical context. 
         I am ${user.name}, and here is some context about me:
-        - I aim to develop the following skills and emulate these role models: ${JSON.stringify(skill.skills)}.
+        - I aim to develop the following skills and emulate these role models: ${formattedSkill}.
         To give better advice, consider this summary of previous suggestions and feedback provided to me:
         "${currentSummary}"
         Below is a transcription of a recent conversation I had:
