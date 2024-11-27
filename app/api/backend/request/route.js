@@ -55,7 +55,7 @@ export async function POST(request) {
         Below is a transcription of a recent conversation I had:
         "${JSON.stringify(transcript_segments)}"
         Based on the transcription, the skills I want to improve, and the historical summary, please provide:
-        1. A concise piece of actionable advice (max 2 sentences) tailored to my goals, if there is an opportunity for improvement.
+        1. A concise piece of actionable advice (max 2 sentences) tailored to my goals and should be much accurate and short so as to could be given as notification, if there is an opportunity for improvement.
         2. If no actionable advice is relevant, respond with exactly the word: "false".
         Ensure your response is in plain text with no markdown, bullet points, or additional formatting.`
         const chatCompletion = await openai.chat.completions.create({
