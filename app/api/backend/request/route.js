@@ -46,10 +46,7 @@ export async function POST(request) {
         } else {
             currentSummary = findSummary.summary;
         }
-        const formattedSkill = skill.skills
-            .map(skill => `${skill.key} as ${skill.value}`)
-            .join(", ");
-        console.log(formattedSkill)
+        const formattedSkill = skill.skills.map(skill => `${skill.key} as ${skill.value}`).join(", ")
 
         const prompt = `You are a skilled and insightful mentor helping individuals improve specific skills based on their recent conversations and historical context. 
         I am ${user.name}, and here is some context about me:
