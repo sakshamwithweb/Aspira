@@ -50,7 +50,7 @@ export async function POST(request) {
 
         const prompt = `You are a skilled and insightful mentor helping individuals improve specific skills based on their recent conversations and historical context. 
         I am ${user.name}, and here is some context about me:
-        - I aim to develop the following skills and emulate these role models: ${formattedSkill}.
+        - I aim to develop the following skills and emulate these role models: ${skill.skills.map(skill => `${skill.key} as ${skill.value}`).join(", ")}.
         To give better advice, consider this summary of previous suggestions and feedback provided to me:
         "${currentSummary}"
         Below is a transcription of a recent conversation I had:
