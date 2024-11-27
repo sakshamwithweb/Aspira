@@ -22,6 +22,7 @@ const openai = new OpenAI({
 export async function POST(request) {
     try {
         const body = await request.json();
+        console.log(body)
         const { transcribe, userId } = body;
 
         const user = await User.findOne({ omi_userid: userId });
