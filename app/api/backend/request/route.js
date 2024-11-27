@@ -23,12 +23,11 @@ export async function POST(request) {
     try {
         const { searchParams } = new URL(request.url);
         const uid = searchParams.get('uid');
-        console.log("uid", uid);
         const body = await request.json();
-        console.log(body)
-        const { transcribe, userId } = body;
+        const { transcript_segments } = body;
+        console.log(transcript_segments)
 
-        const user = await User.findOne({ omi_userid: userId });
+        const user = await User.findOne({ omi_userid: uid });
         if (!user) {
             return NextResponse.json({ error: 'User not found' }, { status: 404 });
         }
