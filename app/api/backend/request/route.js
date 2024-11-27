@@ -46,28 +46,29 @@ export async function POST(request) {
         } else {
             currentSummary = findSummary.summary;
         }
-
+        const prompt = `You are a skilled and insightful mentor helping individuals improve specific skills based on their recent conversations and historical context. 
+        I am ${user.name}, and here is some context about me:
+        - I aim to develop the following skills and emulate these role models: ${JSON.stringify(skill.skills)}.
+        To give better advice, consider this summary of previous suggestions and feedback provided to me:
+        "${currentSummary}"
+        Below is a transcription of a recent conversation I had:
+        "${transcript_segments}"
+        Based on the transcription, the skills I want to improve, and the historical summary, please provide:
+        1. A concise piece of actionable advice (max 2 sentences) tailored to my goals, if there is an opportunity for improvement.
+        2. If no actionable advice is relevant, respond with exactly the word: "false".
+        Ensure your response is in plain text with no markdown, bullet points, or additional formatting.`
         const chatCompletion = await openai.chat.completions.create({
             messages: [
                 { role: 'system', content: "Provide all responses in plain text only no md of any formate. Respond with the exact content requested, avoiding additional context or preamble." },
                 {
                     role: 'user',
-                    content: `You are a skilled and insightful mentor helping individuals improve specific skills based on their recent conversations and historical context. 
-                    I am ${user.name}, and here is some context about me:
-                    - I aim to develop the following skills and emulate these role models: ${JSON.stringify(skill.skills)}.
-                    To give better advice, consider this summary of previous suggestions and feedback provided to me:
-                    "${currentSummary}"
-                    Below is a transcription of a recent conversation I had:
-                    "${transcribe}"
-                    Based on the transcription, the skills I want to improve, and the historical summary, please provide:
-                    1. A concise piece of actionable advice (max 2 sentences) tailored to my goals, if there is an opportunity for improvement.
-                    2. If no actionable advice is relevant, respond with exactly the word: "false".
-                    Ensure your response is in plain text with no markdown, bullet points, or additional formatting.`
+                    content: prompt
                 }
 
             ],
             model: 'gpt-3.5-turbo',
         });
+        console.log(prompt)
         console.log(chatCompletion.choices[0].message.content)
 
         if (chatCompletion.choices[0].message.content && chatCompletion.choices[0].message.content !== "false") {
