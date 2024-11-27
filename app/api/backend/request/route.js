@@ -77,20 +77,22 @@ export async function POST(request) {
 
             const updateSummaryCompletion = await openai.chat.completions.create({
                 messages: [
-                    { role: 'system', content: "Provide all responses in plain text only. Respond with the exact content requested, avoiding additional context or preamble." },
+                    { 
+                        role: 'system', 
+                        content: "Provide all responses in plain text only. Respond with the exact content requested, avoiding additional context or preamble." 
+                    },
                     {
                         role: 'user',
                         content: `You are an AI assistant tasked with updating summaries to reflect new advice. 
-                Here is the current summary of previous suggestions and feedback:
-                "${currentSummary}"
-                Below is the latest advice provided:
-                "${latestAdvice}"
-                Update the summary by incorporating the latest advice. Write in a concise manner, like a memory log, with clear, actionable notes. 
-                Ensure your response is in plain text with no markdown, bullet points, or additional formatting.`
+                        Here is the current summary of previous suggestions and feedback:
+                        "${currentSummary}"
+                        Below is the latest advice provided:
+                        "${latestAdvice}"
+                        Update the summary by incorporating the latest advice. Write a concise and balanced summary—medium in length, clear, and accurate. It should not be overly brief or too detailed, but just the right amount of information, maintaining actionable notes. Ensure your response is in plain text with no markdown, bullet points, or additional formatting.`
                     }
                 ],
                 model: 'gpt-3.5-turbo',
-            });
+            });            
             const updatedSummary = updateSummaryCompletion.choices[0].message.content;
             console.log(updatedSummary)
             const updated = await Summary.findOneAndUpdate({ email: user.email }, { summary: updatedSummary });
