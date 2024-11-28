@@ -56,7 +56,7 @@ To provide the best guidance, consider this summary of previous advice and feedb
 Below is a transcription of a recent conversation I participated in: 
 "${JSON.stringify(transcript_segments)}" 
 Based on the transcription, my skill development goals, and the historical summary:
-1. Provide a concise and actionable piece of advice (maximum 20 words) tailored to align my skills with those of the role models, even if it involves hard truths or criticism. Ensure the advice is clear and actionable enough to serve as a notification. 
+1. Provide a concise and actionable piece of advice (maximum 20 words) tailored to align my skills with those of the role models, even if it involves hard truths or criticism. Ensure the advice is clear and actionable enough to serve as a notification and the words should be familiar. 
 2. If no actionable advice is relevant or necessary, reply with only the word: "false". 
 Your response must be plain text, without markdown, bullet points, or additional formatting.
 `;
