@@ -34,7 +34,7 @@ Aspira is a one-of-a-kind app designed to help you grow and improve by focusing 
    Make sure your Omi AI Necklace is ready to capture conversations.
 
 2. **Create Your Aspira Account**  
-   Go to the **Aspira Website** and log in or sign up.
+   Go to the [Aspira](https://aspira-iota.vercel.app) and log in or sign up.
 
 3. **Define Your Goals**  
    Select the skills you want to master and the role models you admire.
