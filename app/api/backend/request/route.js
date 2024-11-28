@@ -47,17 +47,20 @@ export async function POST(request) {
             currentSummary = findSummary.summary;
         }
 
-        const prompt = `You are a skilled and insightful mentor helping individuals improve specific skills based on their recent conversations and historical context. 
-        I am ${user.name}, and here is some context about me:
-        - I aim to develop the following skills and emulate these role models: ${skill.skills.map(skill => `${skill.key} as ${skill.value}`).join(", ")}.
-        To give better advice, consider this summary of previous suggestions and feedback provided to me:
-        "${currentSummary}"
-        Below is a transcription of a recent conversation I had:
-        "${JSON.stringify(transcript_segments)}"
-        Based on the transcription, the skills I want to improve, and the historical summary, please provide:
-        1. A concise piece of actionable advice (max 2 sentences) tailored to my goals and should be much accurate and short so as to could be given as notification, if there is an opportunity for improvement.
-        2. If no actionable advice is relevant, respond with exactly the word: "false".
-        Ensure your response is in plain text with no markdown, bullet points, or additional formatting.`
+        const prompt = `
+You are a skilled mentor dedicated to helping individuals refine specific skills by analyzing their conversations and historical context. 
+I am ${user.name}, and here is my background: 
+- My goal is to develop the following skills and emulate these role models: ${skill.skills.map(skill => `${skill.key} like ${skill.value}`).join(", ")}. 
+To provide the best guidance, consider this summary of previous advice and feedback I’ve received: 
+"${currentSummary}" 
+Below is a transcription of a recent conversation I participated in: 
+"${JSON.stringify(transcript_segments)}" 
+Based on the transcription, my skill development goals, and the historical summary:
+1. Provide a concise and actionable piece of advice (maximum 20 words) tailored to align my skills with those of the role models, even if it involves hard truths or criticism. Ensure the advice is clear and actionable enough to serve as a notification. 
+2. If no actionable advice is relevant or necessary, reply with only the word: "false". 
+Your response must be plain text, without markdown, bullet points, or additional formatting.
+`;
+
         const chatCompletion = await openai.chat.completions.create({
             messages: [
                 { role: 'system', content: "Provide all responses in plain text only no md of any formate. Respond with the exact content requested, avoiding additional context or preamble." },
