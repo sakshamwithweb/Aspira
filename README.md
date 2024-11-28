@@ -4,6 +4,22 @@ Aspira is a one-of-a-kind app designed to help you grow and improve by focusing 
 
 ---
 
+## Setup: Getting Started with Aspira
+
+1. **Set Up Your Omi Device**  
+   Make sure your Omi AI Necklace is ready to capture conversations.
+
+2. **Create Your Aspira Account**  
+   Go to the [Aspira](https://aspira-iota.vercel.app) and log in or sign up.
+
+3. **Define Your Goals**  
+   Select the skills you want to master and the role models you admire.
+
+4. **Start Improving**  
+   Aspira will process your interactions and provide tailored advice and insights.
+
+---
+
 ## Why Aspira?
 
 - **Make It Personal**: Choose any skill you want to improve and pair it with a role model who inspires you.
@@ -25,22 +41,6 @@ Aspira is a one-of-a-kind app designed to help you grow and improve by focusing 
 
 3. **Track Your Growth**:  
    Aspira refines its advice as you improve.
-
----
-
-## Setup: Getting Started with Aspira
-
-1. **Set Up Your Omi Device**  
-   Make sure your Omi AI Necklace is ready to capture conversations.
-
-2. **Create Your Aspira Account**  
-   Go to the [Aspira](https://aspira-iota.vercel.app) and log in or sign up.
-
-3. **Define Your Goals**  
-   Select the skills you want to master and the role models you admire.
-
-4. **Start Improving**  
-   Aspira will process your interactions and provide tailored advice and insights.
 
 ---
 
