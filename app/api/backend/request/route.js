@@ -98,10 +98,7 @@ Your response must be plain text, without markdown, bullet points, or additional
             console.log(updatedSummary)
             const updated = await Summary.findOneAndUpdate({ email: user.email }, { summary: updatedSummary });
             await updated.save();
-            return NextResponse.json({
-                success: true,
-                message: latestAdvice,
-            })
+            return NextResponse.json({ message: latestAdvice }, { status: 200 });
         } else {
             return NextResponse.json({
                 success: false,
